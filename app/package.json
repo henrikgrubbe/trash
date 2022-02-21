@@ -1,0 +1,31 @@
+{
+  "name": "node-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
+    "build": "tsc -p tsconfig.production.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hense94/node-template.git"
+  },
+  "author": "Henrik Sørensen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hense94/node-template/issues"
+  },
+  "homepage": "https://github.com/hense94/node-template#readme",
+  "dependencies": {
+    "@sentry/integrations": "^6.17.9",
+    "@sentry/node": "^6.17.9",
+    "dotenv": "^16.0.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.18",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.5"
+  }
+}
