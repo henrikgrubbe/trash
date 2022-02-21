@@ -1,5 +1,5 @@
 {
-  "name": "node-template",
+  "name": "trash",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hense94/node-template.git"
+    "url": "git+https://github.com/hense94/trash.git"
   },
   "author": "Henrik Sørensen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hense94/node-template/issues"
+    "url": "https://github.com/hense94/trash/issues"
   },
-  "homepage": "https://github.com/hense94/node-template#readme",
+  "homepage": "https://github.com/hense94/trash#readme",
   "dependencies": {
     "@sentry/integrations": "^6.17.9",
     "@sentry/node": "^6.17.9",

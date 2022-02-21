@@ -11,7 +11,7 @@ RUN npm ci --quiet && npm run build
 
 # Production stage
 FROM node:17-alpine
-LABEL org.opencontainers.image.source="https://github.com/hense94/node-template"
+LABEL org.opencontainers.image.source="https://github.com/hense94/trash"
 
 WORKDIR /app
 

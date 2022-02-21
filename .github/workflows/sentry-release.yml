@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: node-template
+      IMAGE_NAME: trash
     defaults:
       run:
         working-directory: ./app
