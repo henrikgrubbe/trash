@@ -20,8 +20,6 @@ export class CalendarService {
     };
 
     private static initService(): Promise<void> {
-        CalendarService.fetchCalendarAndNotify();
-
         return Promise.resolve();
     }
 
