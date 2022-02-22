@@ -11,27 +11,27 @@ export class CalendarService {
     private static readonly CALENDAR_URL = 'https://www.seerupit.com/toemningskalender/silkeborg/showInfo.php';
     private static readonly NOTIFY_URL = 'https://notifications.ravnely.fantastiskefroe.dk/api/notifications/topic/trash';
 
-    public readonly service: Service = {
+    public static readonly service: Service = {
         name: 'Calendar',
-        initFunction: this.initService.bind(this),
+        initFunction: CalendarService.initService,
         destructFunction: async () => {
         },
         environmentVariables: []
     };
 
-    private initService(): Promise<void> {
-        this.fetchCalendarAndNotify();
+    private static initService(): Promise<void> {
+        CalendarService.fetchCalendarAndNotify();
 
         return Promise.resolve();
     }
 
-    public async fetchCalendarAndNotify() {
+    public static async fetchCalendarAndNotify() {
         const responseText = await CalendarService.getCalendarText();
         const calendarEvents = CalendarService.parseCalendarText(responseText);
 
         calendarEvents
             .filter(calendarEvent => calendarEvent.date.diffNow("days").days <= 1)
-            .forEach(calendarEvent => this.notify(calendarEvent));
+            .forEach(calendarEvent => CalendarService.notify(calendarEvent));
     }
 
     private static async getCalendarText(): Promise<string> {
@@ -75,7 +75,7 @@ export class CalendarService {
         return DateTime.fromFormat(dateString, 'dd-MM');
     }
 
-    private notify(calendarEvent: CalendarEvent): void {
+    private static notify(calendarEvent: CalendarEvent): void {
         const body = {
             title: 'Trash event soon',
             body: CalendarService.calendarEventToString(calendarEvent)

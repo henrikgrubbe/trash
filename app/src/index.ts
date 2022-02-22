@@ -2,11 +2,8 @@ import {destructServices, initServices, registerService} from "./config/service-
 import {sentryService} from "./service/sentry-service";
 import {CalendarService} from "./service/calendar-service";
 
-const calendarService: CalendarService = new CalendarService();
-
 registerService(sentryService);
-registerService(calendarService.service);
-
+registerService(CalendarService.service);
 
 initServices();
 

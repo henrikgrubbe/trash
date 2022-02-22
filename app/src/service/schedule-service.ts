@@ -7,22 +7,26 @@ export interface ScheduledFunction {
     fn: () => void;
 }
 
-export function createScheduleService(...scheduledFunctions: ScheduledFunction[]): Service {
-    return {
-        name: 'Schedule',
-        initFunction: () => initSchedule(...scheduledFunctions),
-        destructFunction: destructSchedule,
-        environmentVariables: []
-    };
+export class ScheduledService {
+
+    public static createScheduleService(...scheduledFunctions: ScheduledFunction[]): Service {
+        return {
+            name: 'Schedule',
+            initFunction: () => ScheduledService.initService(...scheduledFunctions),
+            destructFunction: ScheduledService.destructService,
+            environmentVariables: []
+        };
+    }
+
+    private static initService(...scheduledFunctions: (ScheduledFunction)[]): Promise<void> {
+        scheduledFunctions
+            .forEach((scheduledFunction => schedule.scheduleJob(scheduledFunction.cron, scheduledFunction.fn)))
+
+        return Promise.resolve();
+    }
+
+    private static destructService(): Promise<void> {
+        return schedule.gracefulShutdown();
+    }
 }
 
-function initSchedule(...scheduledFunctions: (ScheduledFunction)[]): Promise<void> {
-    scheduledFunctions
-        .forEach((scheduledFunction => schedule.scheduleJob(scheduledFunction.cron, scheduledFunction.fn)))
-
-    return Promise.resolve();
-}
-
-function destructSchedule(): Promise<void> {
-    return schedule.gracefulShutdown();
-}
