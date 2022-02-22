@@ -44,7 +44,11 @@ export class CalendarService {
         };
 
         return fetch(CalendarService.CALENDAR_URL, options)
-            .then(response => response.text());
+            .then(response => {
+                console.log('Fetched calendar');
+                return response.text()
+            })
+            .catch(error => console.error('error', error));
     }
 
     private static parseCalendarText(calendarText: string): CalendarEvent[] {
@@ -90,8 +94,11 @@ export class CalendarService {
         };
 
         return fetch(CalendarService.NOTIFY_URL, options)
-            .then(response => response.text())
-            .catch(error => console.log('error', error));
+            .then(response => {
+                console.log('Sent notification');
+                return response.text()
+            })
+            .catch(error => console.error('error', error));
     }
 
     private static calendarEventToString(calendarEvent: CalendarEvent): string {
