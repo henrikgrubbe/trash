@@ -6,7 +6,7 @@ import {ScheduledService} from "./service/schedule-service";
 registerService(sentryService);
 registerService(CalendarService.service);
 registerService(ScheduledService.createScheduleService({
-    cron: '0 0 20 * * *',
+    cron: '0 0 21 * * *',
     fn: CalendarService.fetchCalendarAndNotify
 }));
 
