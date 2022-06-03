@@ -28,12 +28,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Print
-        run: ls -al
-
-      - name: pwd
-        run: pwd
-
       - name: Sentry release
         uses: getsentry/action-release@v1.1.6
         env:
