@@ -28,7 +28,7 @@
     "luxon": "^3.0.1"
   },
   "devDependencies": {
-    "@types/luxon": "^2.0.9",
+    "@types/luxon": "^3.0.0",
     "@types/node": "^18.0.1",
     "@types/node-fetch": "^3.0.3",
     "ts-node-dev": "^2.0.0",
