@@ -1,28 +1,28 @@
-import {destructServices, initServices, registerService} from "./config/service-registry";
-import {sentryService} from "./service/sentry-service";
+import {ServiceRegistry} from './config/service-registry';
+import {ScheduleService} from './service/schedule-service';
 import {CalendarService} from "./service/calendar-service";
-import {ScheduledService} from "./service/schedule-service";
+import {ScheduledFunction} from "./model/scheduledFunction";
 
-registerService(sentryService);
-registerService(CalendarService.service);
-registerService(ScheduledService.createScheduleService(
-    {
-        cron: '0 0 12 * * *',
-        fn: CalendarService.fetchCalendarAndNotify
-    },
-    {
-        cron: '0 0 18 * * *',
-        fn: CalendarService.fetchCalendarAndNotify
-    }
-));
+const serviceRegistry = new ServiceRegistry();
 
-initServices();
+const calendarService = new CalendarService();
+serviceRegistry.registerService(calendarService);
+
+const scheduledFunctions: ScheduledFunction[] = [
+    '0 0 12 * * *',
+    '0 0 18 * * *'
+].map(cron => ({cron, fn: calendarService.fetchCalendarAndNotify}));
+serviceRegistry.registerService(new ScheduleService(...scheduledFunctions));
+
+serviceRegistry.initServices();
+
+
 
 process.on('SIGINT', handleTermination);
 process.on('SIGTERM', handleTermination);
 
 function handleTermination(args) {
-    console.info(`Received ${args} shutting down`);
-    destructServices()
+    console.info(`Received ${args} - shutting down`);
+    serviceRegistry.destructServices()
         .then(() => process.exit(0));
 }

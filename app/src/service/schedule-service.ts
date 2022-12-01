@@ -1,32 +1,27 @@
 import {Service} from "../model/service";
+import {ScheduledFunction} from "../model/scheduledFunction";
 
 const schedule = require('node-schedule');
 
-export interface ScheduledFunction {
-    cron: string;
-    fn: () => void;
-}
 
-export class ScheduledService {
+export class ScheduleService implements Service {
+    public readonly name = 'Schedule';
+    public readonly environmentVariables = [];
 
-    public static createScheduleService(...scheduledFunctions: ScheduledFunction[]): Service {
-        return {
-            name: 'Schedule',
-            initFunction: () => ScheduledService.initService(...scheduledFunctions),
-            destructFunction: ScheduledService.destructService,
-            environmentVariables: []
-        };
+    private readonly scheduledFunctions: ScheduledFunction[] = [];
+
+    constructor(...scheduledFunctions: ScheduledFunction[]) {
+        this.scheduledFunctions = scheduledFunctions;
     }
 
-    private static initService(...scheduledFunctions: (ScheduledFunction)[]): Promise<void> {
-        scheduledFunctions
-            .forEach((scheduledFunction => schedule.scheduleJob(scheduledFunction.cron, scheduledFunction.fn)))
+    public init(_: Record<string, string>): Promise<void> {
+        this.scheduledFunctions
+            .forEach((scheduledFn => schedule.scheduleJob(scheduledFn.cron, scheduledFn.fn)))
 
         return Promise.resolve();
     }
 
-    private static destructService(): Promise<void> {
+    public destruct(): Promise<void> {
         return schedule.gracefulShutdown();
     }
 }
-

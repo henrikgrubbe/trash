@@ -1,5 +1,5 @@
 # Build stage
-FROM node:17 AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /usr/src/app
 
@@ -10,13 +10,10 @@ RUN npm ci --quiet && npm run build
 
 
 # Production stage
-FROM node:17-alpine
-LABEL org.opencontainers.image.source="https://github.com/hense94/trash"
+FROM node:18-alpine
 
 WORKDIR /app
 
-ARG RELEASE
-ENV SENTRY_RELEASE=${RELEASE:-dev}
 ENV NODE_ENV=production
 ENV DEBUG=false
 
