@@ -34,7 +34,7 @@ export class CalendarService implements Service {
         this.fetchCalendarEvents()
             .then(calendarEvents => calendarEvents
                 .filter(CalendarService.calendarEventRelevant)
-                .forEach(this.notify));
+                .forEach(calendarEvent => this.notify(calendarEvent)));
     }
 
     private fetchCalendarEvents(): Promise<CalendarEvent[]> {
