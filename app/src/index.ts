@@ -10,7 +10,6 @@ serviceRegistry.registerService(calendarService);
 
 const scheduledFunctions: ScheduledFunction[] = [
     '0 0 12 * * *',
-    '0 *  * * * *',
     '0 0 18 * * *'
 ].map(cron => ({cron, fn: () => calendarService.fetchCalendarAndNotify()}));
 serviceRegistry.registerService(new ScheduleService(...scheduledFunctions));
