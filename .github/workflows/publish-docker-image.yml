@@ -25,7 +25,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          build-args: RELEASE=${{ github.sha }}
           labels: |
             maintainer=${{ github.repository_owner }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
